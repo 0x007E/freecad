@@ -14,17 +14,17 @@
 
 The mechanical housing can be edited over a spreadsheet. It uses a 42mm side profile [(Datasheet)](https://gie-tec.de/wp-content/uploads/2017/03/db_122010.pdf). The project itself contains nececarry TechDraws of all used elements.
 
-![Mechanical](./m_design.png)
+![Mechanical](./images/m_design.png)
 
-![Mechanical](./m_explode.png)
+![Mechanical](./images/m_explode.png)
 
 ## Print housing
 
 The print housing can be edited over a spreadsheet and can be printed with a 3D printer. The project itself contains nececarry TechDraws of all used elements.
 
-![Mechanical](./p_design.png)
+![Mechanical](./images/p_design.png)
 
-![Mechanical](./p_explode.png)
+![Mechanical](./images/p_explode.png)
 
 ---
 
