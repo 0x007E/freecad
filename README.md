@@ -2,11 +2,12 @@
 
 # FreeCAD test repository
 
-## Download
+## Downloads
 
 | Type      | File               | Description              |
 |:---------:|:------------------:|:-------------------------|
-| Housing | [zip](https://github.com/0x007E/freecad/releases/latest/download/freecad.zip) / [tar](https://github.com/0x007E/freecad/releases/latest/download/freecad.tar.gz) | Mechanical and printing housing files     |
+| Housing | [zip](https://github.com/0x007E/freecad/releases/latest/download/freecad-mechanical.zip) / [tar](https://github.com/0x007E/freecad/releases/latest/download/freecad-mechanical.tar.gz) | Mechanical housing files     |
+| Housing | [zip](https://github.com/0x007E/freecad/releases/latest/download/freecad-printing.zip) / [tar](https://github.com/0x007E/freecad/releases/latest/download/freecad-printing.tar.gz) | Printing housing files     |
 
 
 ## Mechanical housing
