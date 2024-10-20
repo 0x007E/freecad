@@ -99,14 +99,15 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: freecad-export-mechanical
-        path: ./artifact/freecad
+        path: ./artifact/freecad/mechanical
     - name: Display structure
-      run: ls -R ./artifact/freecad
+      run: ls -R ./artifact/freecad/mechanical
     - name: Create Compressed File
       run: |
-        cd ./artifact
-        tar -czvf ./freecad.tar.gz ./freecad
-        zip -r ./freecad.zip ./freecad
+        cd ./artifact/freecad
+        tar -czvf ./freecad-mechanical.tar.gz ./mechanical
+        zip -r ./freecad-mechanical.zip ./mechanical
+        cd ..
         cd ..
 
     - name: Upload FreeCAD Mechanical Asset
@@ -115,7 +116,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifact/freecad.tar.gz
+        asset_path: ./artifact/freecad-mechanical.tar.gz
         asset_name: freecad-mechanical.tar.gz
         asset_content_type: application/gzip
     
@@ -125,7 +126,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifact/freecad.zip
+        asset_path: ./artifact/freecad-mechanical.zip
         asset_name: freecad-mechanical.zip
         asset_content_type: application/zip
     
@@ -133,14 +134,15 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: freecad-export-printing
-        path: ./artifact/freecad
+        path: ./artifact/freecad/printing
     - name: Display structure
-      run: ls -R ./artifact/freecad
+      run: ls -R ./artifact/freecad/printing
     - name: Create Compressed File
       run: |
-        cd ./artifact
-        tar -czvf ./freecad.tar.gz ./freecad
-        zip -r ./freecad.zip ./freecad
+        cd ./artifact/printing
+        tar -czvf ./freecad-printing.tar.gz ./printing
+        zip -r ./freecad-printing.zip ./printing
+        cd ..
         cd ..
 
     - name: Upload FreeCAD Printing Asset
@@ -149,7 +151,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifact/freecad.tar.gz
+        asset_path: ./artifact/freecad-printing.tar.gz
         asset_name: freecad-printing.tar.gz
         asset_content_type: application/gzip
     
@@ -159,6 +161,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifact/freecad.zip
+        asset_path: ./artifact/freecad-printing.zip
         asset_name: freecad-printing.zip
         asset_content_type: application/zip
