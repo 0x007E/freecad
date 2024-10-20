@@ -1,4 +1,13 @@
+[![Version: 1.0 Release](https://img.shields.io/badge/Version-1.0%20Release-green.svg)](https://github.com/0x007e/freecad) ![Build](https://github.com/0x007e/freecad/actions/workflows/build.yml/badge.svg?branch=main) [![License CC By-NC-SA](https://img.shields.io/badge/Hardware-CC--BY--NC--SA--4.0-lightgrey)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
+
 # FreeCAD test repository
+
+## Downloads
+
+| Type      | File               | Description              |
+|:---------:|:------------------:|:-------------------------|
+| Housing | [zip](https://github.com/0x007E/freecad/releases/latest/download/freecad.zip) / [tar](https://github.com/0x007E/freecad/releases/latest/download/freecad.tar.gz) | Mechanical and printing housing files     |
+
 
 ## Mechanical housing
 
