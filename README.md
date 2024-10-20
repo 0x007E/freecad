@@ -2,7 +2,7 @@
 
 # FreeCAD test repository
 
-## Downloads
+## Download
 
 | Type      | File               | Description              |
 |:---------:|:------------------:|:-------------------------|
