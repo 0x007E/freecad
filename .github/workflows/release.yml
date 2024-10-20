@@ -139,7 +139,7 @@ jobs:
       run: ls -R ./artifact/freecad/printing
     - name: Create Compressed File
       run: |
-        cd ./artifact/printing
+        cd ./artifact/freecad
         tar -czvf ../freecad-printing.tar.gz ./printing
         zip -r ../freecad-printing.zip ./printing
         cd ..
