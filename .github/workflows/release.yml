@@ -105,8 +105,8 @@ jobs:
     - name: Create Compressed File
       run: |
         cd ./artifact/freecad
-        tar -czvf ./freecad-mechanical.tar.gz ./mechanical
-        zip -r ./freecad-mechanical.zip ./mechanical
+        tar -czvf ../freecad-mechanical.tar.gz ./mechanical
+        zip -r ../freecad-mechanical.zip ./mechanical
         cd ..
         cd ..
 
@@ -140,8 +140,8 @@ jobs:
     - name: Create Compressed File
       run: |
         cd ./artifact/printing
-        tar -czvf ./freecad-printing.tar.gz ./printing
-        zip -r ./freecad-printing.zip ./printing
+        tar -czvf ../freecad-printing.tar.gz ./printing
+        zip -r ../freecad-printing.zip ./printing
         cd ..
         cd ..
 
