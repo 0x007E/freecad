@@ -9,7 +9,7 @@ jobs:
   export-freecad-mechanical:
     env:
       FREECADVERSION: "0.21.2"
-      FreeCADFileName: "./mechanical.FCStd"
+      FreeCADFileName: "./mechanical/mechanical.FCStd"
       OutputFolder: "./output"
       PartType: "PartDesign::Body"
     runs-on: ubuntu-latest
@@ -45,7 +45,7 @@ jobs:
   export-freecad-printing:
     env:
       FREECADVERSION: "0.21.2"
-      FreeCADFileName: "./printing.FCStd"
+      FreeCADFileName: "./mechanical/printing.FCStd"
       OutputFolder: "./output"
       PartType: "PartDesign::Body"
     runs-on: ubuntu-latest
