@@ -20,6 +20,7 @@ jobs:
     - name: Prepare output directory
       run: |
         mkdir -p ${{ env.OutputFolder }}
+        cp -r ./mechanical ${{ env.OutputFolder }}
         cp ./LICENSE ${{ env.OutputFolder }}
 
     - name: Install FreeCAD
@@ -56,6 +57,7 @@ jobs:
     - name: Prepare output directory
       run: |
         mkdir -p ${{ env.OutputFolder }}
+        cp -r ./mechanical ${{ env.OutputFolder }}
         cp ./LICENSE ${{ env.OutputFolder }}
 
     - name: Install FreeCAD
