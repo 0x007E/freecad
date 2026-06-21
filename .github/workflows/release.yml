@@ -33,7 +33,7 @@ jobs:
       uses: actions/checkout@v7
       with:
         repository: 0x007E/pyfreecadexport
-        path: ./
+        path: ./pyfreecadexport
         token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Export STEP Files
@@ -75,7 +75,7 @@ jobs:
       uses: actions/checkout@v7
       with:
         repository: 0x007E/pyfreecadexport
-        path: ./
+        path: ./pyfreecadexport
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Export STEP Files
