@@ -8,76 +8,76 @@ on:
 jobs:
   export-freecad-mechanical:
     env:
-      FREECADVERSION: "1.0.0"
-      FreeCADFileName: "./mechanical/mechanical.FCStd"
-      OutputFolder: "./output"
-      PartType: "PartDesign::Body"
+      FREECAD_VERSION: "1.1.1"
+      FREECAD_FILENAME: "./mechanical/mechanical.FCStd"
+      FREECAD_OUTPUT_FOLDER: "./output"
+      FREECAD_PARTTYPE: "PartDesign::Body"
     runs-on: ubuntu-latest
     steps:
     - name: Fetch repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     
     - name: Prepare output directory
       run: |
-        mkdir -p ${{ env.OutputFolder }}
-        cp -r ./mechanical ${{ env.OutputFolder }}
-        cp ./LICENSE ${{ env.OutputFolder }}
+        mkdir -p ${{ env.FREECAD_OUTPUT_FOLDER }}
+        cp -r ./mechanical ${{ env.FREECAD_OUTPUT_FOLDER }}
+        cp ./LICENSE ${{ env.FREECAD_OUTPUT_FOLDER }}
 
     - name: Install FreeCAD
       run: |
-          wget https://github.com/FreeCAD/FreeCAD/releases/download/${{ env.FREECADVERSION }}/FreeCAD_${{ env.FREECADVERSION }}-conda-Linux-x86_64-py311.AppImage
-          chmod 0777 FreeCAD_${{ env.FREECADVERSION }}-conda-Linux-x86_64-py311.AppImage
-          ./FreeCAD_${{ env.FREECADVERSION }}-conda-Linux-x86_64-py311.AppImage --appimage-extract
+          wget https://github.com/FreeCAD/FreeCAD/releases/download/${{ env.FREECAD_VERSION }}/FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage
+          chmod 0777 FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage
+          ./FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage --appimage-extract
     - name: Get FreeCAD Export
       run: |
           git clone https://github.com/0x007E/pyfreecadexport.git
     - name: Export STEP Files
       run: |
-          ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FreeCADFileName }}" -p "${{ env.PartType }}" -d "${{ env.OutputFolder }}" -e "step" -l "squashfs-root/usr/lib/"
-          ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FreeCADFileName }}" -p "${{ env.PartType }}" -d "${{ env.OutputFolder }}" -e "stl" -l "squashfs-root/usr/lib/"
+          ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FREECAD_FILENAME }}" -p "${{ env.FREECAD_PARTTYPE }}" -d "${{ env.FREECAD_OUTPUT_FOLDER }}" -e "step" -l "squashfs-root/usr/lib/"
+          ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FREECAD_FILENAME }}" -p "${{ env.FREECAD_PARTTYPE }}" -d "${{ env.FREECAD_OUTPUT_FOLDER }}" -e "stl" -l "squashfs-root/usr/lib/"
     
     - name: Archive artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: freecad-export-mechanical
-        path: ${{ env.OutputFolder }}
+        path: ${{ env.FREECAD_OUTPUT_FOLDER }}
         retention-days: 1
   
   export-freecad-printing:
     env:
-      FREECADVERSION: "1.0.0"
-      FreeCADFileName: "./mechanical/printing.FCStd"
-      OutputFolder: "./output"
-      PartType: "PartDesign::Body"
+      FREECAD_VERSION: "1.1.1"
+      FREECAD_FILENAME: "./mechanical/printing.FCStd"
+      FREECAD_OUTPUT_FOLDER: "./output"
+      FREECAD_PARTTYPE: "PartDesign::Body"
     runs-on: ubuntu-latest
     steps:
     - name: Fetch repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     
     - name: Prepare output directory
       run: |
-        mkdir -p ${{ env.OutputFolder }}
-        cp -r ./mechanical ${{ env.OutputFolder }}
-        cp ./LICENSE ${{ env.OutputFolder }}
+        mkdir -p ${{ env.FREECAD_OUTPUT_FOLDER }}
+        cp -r ./mechanical ${{ env.FREECAD_OUTPUT_FOLDER }}
+        cp ./LICENSE ${{ env.FREECAD_OUTPUT_FOLDER }}
 
     - name: Install FreeCAD
       run: |
-          wget https://github.com/FreeCAD/FreeCAD/releases/download/${{ env.FREECADVERSION }}/FreeCAD_${{ env.FREECADVERSION }}-conda-Linux-x86_64-py311.AppImage
-          chmod 0777 FreeCAD_${{ env.FREECADVERSION }}-conda-Linux-x86_64-py311.AppImage
-          ./FreeCAD_${{ env.FREECADVERSION }}-conda-Linux-x86_64-py311.AppImage --appimage-extract
+          wget https://github.com/FreeCAD/FreeCAD/releases/download/${{ env.FREECAD_VERSION }}/FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage
+          chmod 0777 FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage
+          ./FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage --appimage-extract
     - name: Get FreeCAD Export
       run: |
           git clone https://github.com/0x007E/pyfreecadexport.git
     - name: Export STEP Files
       run: |
-          ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FreeCADFileName }}" -p "${{ env.PartType }}" -d "${{ env.OutputFolder }}" -e "step" -l "squashfs-root/usr/lib/"
-          ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FreeCADFileName }}" -p "${{ env.PartType }}" -d "${{ env.OutputFolder }}" -e "stl" -l "squashfs-root/usr/lib/"
+          ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FREECAD_FILENAME }}" -p "${{ env.FREECAD_PARTTYPE }}" -d "${{ env.FREECAD_OUTPUT_FOLDER }}" -e "step" -l "squashfs-root/usr/lib/"
+          ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FREECAD_FILENAME }}" -p "${{ env.FREECAD_PARTTYPE }}" -d "${{ env.FREECAD_OUTPUT_FOLDER }}" -e "stl" -l "squashfs-root/usr/lib/"
     
     - name: Archive artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: freecad-export-printing
-        path: ${{ env.OutputFolder }}
+        path: ${{ env.FREECAD_OUTPUT_FOLDER }}
         retention-days: 1
 
   create-release:
