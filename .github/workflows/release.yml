@@ -93,86 +93,63 @@ jobs:
   create-release:
     needs: [export-freecad-mechanical, export-freecad-printing]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
     steps:
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-            Release ${{ github.ref }}
-        draft: false
-        prerelease: false
+      - name: Create Release
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            --title "Release ${{ github.ref_name }}" \
+            --notes "Release ${{ github.ref_name }}"
 
-    - name: Download FreeCAD Mechanical Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: freecad-export-mechanical
-        path: ./artifact/freecad/mechanical
-    - name: Display structure
-      run: ls -R ./artifact/freecad/mechanical
-    - name: Create Compressed File
-      run: |
-        cd ./artifact/freecad
-        tar -czvf ../freecad-mechanical.tar.gz ./mechanical
-        zip -r ../freecad-mechanical.zip ./mechanical
-        cd ..
-        cd ..
+      - name: Download FreeCAD Mechanical Artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: freecad-export-mechanical
+          path: ./artifact/freecad/mechanical
+      - name: Display structure
+        run: ls -R ./artifact/freecad/mechanical
+      - name: Create Compressed File
+        run: |
+          cd ./artifact/freecad
+          tar -czvf ../freecad-mechanical.tar.gz ./mechanical
+          zip -r ../freecad-mechanical.zip ./mechanical
+          cd ..
+          cd ..
 
-    - name: Upload FreeCAD Mechanical Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifact/freecad-mechanical.tar.gz
-        asset_name: freecad-mechanical.tar.gz
-        asset_content_type: application/gzip
-    
-    - name: Upload FreeCAD Mechanical Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifact/freecad-mechanical.zip
-        asset_name: freecad-mechanical.zip
-        asset_content_type: application/zip
-    
-    - name: Download FreeCAD Printing Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: freecad-export-printing
-        path: ./artifact/freecad/printing
-    - name: Display structure
-      run: ls -R ./artifact/freecad/printing
-    - name: Create Compressed File
-      run: |
-        cd ./artifact/freecad
-        tar -czvf ../freecad-printing.tar.gz ./printing
-        zip -r ../freecad-printing.zip ./printing
-        cd ..
-        cd ..
+      - name: Upload FreeCAD Mechanical Files
+        run: |
+          gh release upload ${{ github.ref_name }} \
+            ./artifact/freecad-mechanical.tar.gz \
+            ./artifact/freecad-mechanical.zip
 
-    - name: Upload FreeCAD Printing Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifact/freecad-printing.tar.gz
-        asset_name: freecad-printing.tar.gz
-        asset_content_type: application/gzip
-    
-    - name: Upload FreeCAD Printing Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifact/freecad-printing.zip
-        asset_name: freecad-printing.zip
-        asset_content_type: application/zip
+      - name: Download FreeCAD Printing Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: freecad-export-printing
+          path: ./artifact/freecad/printing
+      - name: Display structure
+        run: ls -R ./artifact/freecad/printing
+      - name: Create Compressed File
+        run: |
+          cd ./artifact/freecad
+          tar -czvf ../freecad-printing.tar.gz ./printing
+          zip -r ../freecad-printing.zip ./printing
+          cd ..
+          cd ..
+
+      - name: Upload FreeCAD Printing Files
+        run: |
+          gh release upload ${{ github.ref_name }} \
+            ./artifact/freecad-printing.tar.gz \
+            ./artifact/freecad-printing.zip
+
+      - name: Rollback release on failure
+        if: failure()
+        run: |
+          gh release delete "${{ github.ref_name }}" -y --cleanup-tag
+          git push --delete origin "${{ github.ref_name }}" || true
