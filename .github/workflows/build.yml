@@ -31,9 +31,14 @@ jobs:
           wget https://github.com/FreeCAD/FreeCAD/releases/download/${{ env.FREECAD_VERSION }}/FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage
           chmod 0777 FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage
           ./FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage --appimage-extract
+    
     - name: Get FreeCAD Export
-      run: |
-          git clone https://github.com/0x007E/pyfreecadexport.git
+      uses: actions/checkout@v7
+      with:
+        repository: 0x007E/pyfreecadexport
+        path: ./
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
     - name: Export STEP Files
       run: |
           ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FREECAD_FILENAME }}" -p "${{ env.FREECAD_PARTTYPE }}" -d "${{ env.FREECAD_OUTPUT_FOLDER }}" -e "step" -l "squashfs-root/usr/lib/"
@@ -68,9 +73,14 @@ jobs:
           wget https://github.com/FreeCAD/FreeCAD/releases/download/${{ env.FREECAD_VERSION }}/FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage
           chmod 0777 FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage
           ./FreeCAD_${{ env.FREECAD_VERSION }}-Linux-x86_64-py311.AppImage --appimage-extract
+
     - name: Get FreeCAD Export
-      run: |
-          git clone https://github.com/0x007E/pyfreecadexport.git
+      uses: actions/checkout@v7
+      with:
+        repository: 0x007E/pyfreecadexport
+        path: ./
+        token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Export STEP Files
       run: |
           ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FREECAD_FILENAME }}" -p "${{ env.FREECAD_PARTTYPE }}" -d "${{ env.FREECAD_OUTPUT_FOLDER }}" -e "step" -l "squashfs-root/usr/lib/"
